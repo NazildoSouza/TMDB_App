@@ -18,11 +18,11 @@ class MovieSearchState: ObservableObject {
     
     private var subscriptionToken: AnyCancellable?
     
-    let movieService: MovieService
+    private let movieService: MovieService
     
-//    var isEmptyResults: Bool {
-//        !self.query.isEmpty && self.movies != nil && self.movies!.isEmpty
-//    }
+    var isEmptyResults: Bool {
+        !self.query.isEmpty && self.movies != nil && self.movies!.isEmpty
+    }
     
     init(movieService: MovieService = MovieStore.shared) {
         self.movieService = movieService
@@ -37,15 +37,16 @@ class MovieSearchState: ObservableObject {
                 self?.error = nil
                 return text
 
-        }
+            }
             .throttle(for: 1, scheduler: DispatchQueue.main, latest: true)
             .sink { [weak self] in self?.search(query: $0) }
+
     }
     
     func search(query: String) {
         self.movies = nil
-        self.isLoading = false
         self.error = nil
+        self.isLoading = false
         
         guard !query.isEmpty else {
             return
@@ -61,6 +62,7 @@ class MovieSearchState: ObservableObject {
                 self.movies = response.results
             case .failure(let error):
                 self.error = error as NSError
+                print(error.localizedDescription)
             }
         }
     }
