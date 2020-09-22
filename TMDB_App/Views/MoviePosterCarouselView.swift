@@ -12,7 +12,6 @@ struct MoviePosterCarouselView: View {
     let title: String
     let movies: [Movie]
     let media: MediaType
- //   @ObservedObject private var movieDetailState = MovieDetailState()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -26,8 +25,10 @@ struct MoviePosterCarouselView: View {
                 HStack(alignment: .top, spacing: 16) {
                     ForEach(self.movies) { movie in
                         NavigationLink(destination: MovieDetailView(movieId: movie.id, media: media, personLink: .navigation)) {
+
                             MoviePosterCard(movie: movie)
                                 .frame(height: 320)
+                            
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

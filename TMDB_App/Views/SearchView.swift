@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct SearchView: View {
     
-    @ObservedObject private var movieSearchState = MovieSearchState()
+    @StateObject private var movieSearchState = MovieSearchState()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -21,47 +21,47 @@ struct SearchView: View {
                 Spacer().frame(height: 150)
                 
                 LoadingView(isLoading: self.movieSearchState.isLoading, error: self.movieSearchState.error) {
-                    self.movieSearchState.startObserve()
-                 //   self.movieSearchState.search(query: self.movieSearchState.query)
+                    self.movieSearchState.search(query: self.movieSearchState.query)
                 }
                 
                 if self.movieSearchState.movies != nil {
                     ForEach(self.movieSearchState.movies!) { movie in
                         NavigationLink(destination: MovieDetailView(movieId: movie.id, media: movie.mediaType!, personLink: .navigation)) {
-                        HStack(alignment: .top, spacing: 15) {
-                            AnimatedImage(url: movie.mediaType == .person ? movie.profileURL : movie.posterURL)
-                                .resizable()
-                                .placeholder {
-                                    ZStack {
-                                        Rectangle().foregroundColor(Color(.systemGray4))
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .frame(width: 60, height: 50)
-                                        .foregroundColor(.secondary)
+                            
+                            HStack(alignment: .top, spacing: 15) {
+                                AnimatedImage(url: movie.mediaType == .person ? movie.profileURL : movie.posterURL)
+                                    .resizable()
+                                    .placeholder {
+                                        ZStack {
+                                            Rectangle().foregroundColor(Color(.systemGray4))
+                                            Image(systemName: "photo")
+                                                .resizable()
+                                                .frame(width: 60, height: 50)
+                                                .foregroundColor(.secondary)
+                                        }
                                     }
+                                    .indicator(SDWebImageActivityIndicator.medium)
+                                    .frame(width: 100, height: 150)
+                                    .aspectRatio(contentMode: .fit)
+                                    .cornerRadius(8)
+                                    .shadow(radius: 4)
+                                
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(movie.title ?? movie.name ?? "Desconhecido")
+                                        .fontWeight(.bold)
+                                        .padding(.top, 5)
+                                    
+                                    Text(movie.yearText != "n/a" ? movie.yearText : (movie.yearTextSerie != "n/a" ? movie.yearTextSerie : movie.knownForDepartment ?? "n/a"))
+                                        .foregroundColor(.secondary)
+                                    
+                                    Text(movie.overview ?? movie.biography ?? "")
+                                        .lineLimit(3)
                                 }
-                                .indicator(SDWebImageActivityIndicator.medium)
-                                .frame(width: 100, height: 150)
-                                .aspectRatio(contentMode: .fit)
-                                .cornerRadius(8)
-                                .shadow(radius: 4)
-                            
-                            VStack(alignment: .leading, spacing: 5) {
-                                Text(movie.title ?? movie.name ?? "Desconhecido")
-                                    .fontWeight(.bold)
-                                    .padding(.top, 5)
                                 
-                                Text(movie.yearText != "n/a" ? movie.yearText : (movie.yearTextSerie != "n/a" ? movie.yearTextSerie : movie.knownForDepartment ?? "n/a"))
-                                    .foregroundColor(.secondary)
+                                Spacer()
                                 
-                                Text(movie.overview ?? movie.biography ?? "")
-                                    .lineLimit(3)
                             }
-                            
-                            Spacer()
-                            
-                        }
-                        .padding([.horizontal, .bottom])
+                            .padding([.horizontal, .bottom])
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
@@ -69,14 +69,12 @@ struct SearchView: View {
                 
                 if self.movieSearchState.isEmptyResults {
                     Text("Sem Resultados")
-                        .padding()
                     
                 }
                 
                 if self.movieSearchState.query.isEmpty {
                     Text("Busque por um Filme, Série ou Pessoa...")
                         .multilineTextAlignment(.center)
-                        .padding()
                 }
             }
             
@@ -85,7 +83,7 @@ struct SearchView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 10)
-
+                
                 SearchBar(query: self.$movieSearchState.query)
                     .padding(.horizontal, 25)
                     .padding(.bottom)
@@ -136,7 +134,7 @@ struct SearchBar: View {
 }
 
 struct SearchBarView: UIViewRepresentable {
-
+    
     let placeholder: String
     @Binding var text: String
     
@@ -171,5 +169,5 @@ struct SearchBarView: UIViewRepresentable {
             searchBar.resignFirstResponder()
         }
     }
-
+    
 }

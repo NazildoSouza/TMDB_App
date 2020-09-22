@@ -13,8 +13,6 @@ struct MovieBackdropCarouselView: View {
     let movies: [Movie]
     let media: MediaType
     
-  //  @ObservedObject private var movieDetailState = MovieDetailState()
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 15) {
             Text(title)
@@ -26,8 +24,10 @@ struct MovieBackdropCarouselView: View {
                 HStack(alignment: .top, spacing: 16) {
                     ForEach(self.movies) { movie in
                         NavigationLink(destination: MovieDetailView(movieId: movie.id, media: media, personLink: .navigation)) {
+                        
                             MovieBackdropCard(movie: movie)
                                 .frame(width: 272, height: 200)
+
                         }
                         .buttonStyle(PlainButtonStyle())
                     }

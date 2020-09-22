@@ -53,7 +53,7 @@ class MovieSearchState: ObservableObject {
         }
         
         self.isLoading = true
-        self.movieService.searchMovie(query: query) {[weak self] (result) in
+        self.movieService.searchMovie(query: query) { [weak self] (result) in
             guard let self = self, self.query == query else { return }
             
             self.isLoading = false

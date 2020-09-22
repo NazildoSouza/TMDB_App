@@ -11,10 +11,10 @@ import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
     
+    @StateObject private var movieDetailState = MovieDetailState()
     var movieId: Int
     var media: MediaType
     var personLink: PersonLink
-    @ObservedObject private var movieDetailState = MovieDetailState()
     
     var body: some View {
         ZStack {
@@ -28,7 +28,7 @@ struct MovieDetailView: View {
                     MovieDetailPersonView(personLink: self.personLink, movie: self.movieDetailState.movie!)
 
                 } else {
-                    MovieDetailListView(movie: self.movieDetailState.movie!, movieDetailState: self.movieDetailState)
+                    MovieDetailListView(movieDetailState: self.movieDetailState, movie: self.movieDetailState.movie!)
                 }
             }
         }
@@ -46,10 +46,10 @@ struct MovieDetailView_Previews: PreviewProvider {
 
 struct MovieDetailListView: View {
     
-    let movie: Movie
     @ObservedObject var movieDetailState: MovieDetailState
     @State private var selectedTrailer: MovieVideo?
     @State private var showPerson = false
+    let movie: Movie
     
     var body: some View {
         GeometryReader { g in
@@ -72,12 +72,31 @@ struct MovieDetailListView: View {
                         .indicator(SDWebImageActivityIndicator.medium)
                         .aspectRatio(16/9, contentMode: .fit)
                         .clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 18, height: 18)))
+                        .padding(.bottom, UIDevice.current.name == "iPhone SE (2nd generation)" ? -115 : -140)
                         .edgesIgnoringSafeArea(.top)
-                        .padding(.bottom, -140)
+                    
                 }
                 
-                
-                ScrollView {
+                ScrollView(showsIndicators: false) {
+                    if g.size.width > 500 {
+                        AnimatedImage(url: movie.backdropURL)
+                            .resizable()
+                            .placeholder {
+                                ZStack(alignment: .center) {
+                                    Rectangle().foregroundColor(Color(.systemGray4))
+                                        .frame(height: 400)
+                                    
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .frame(width: 260, height: 200)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
+                            .indicator(SDWebImageActivityIndicator.medium)
+                            .aspectRatio(16/9, contentMode: .fit)
+                            .clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 18, height: 18)))
+                    }
+                    
                     Text(movie.title ?? movie.name ?? "Desconhecido")
                         .font(.title)
                         .fontWeight(.bold)
@@ -91,10 +110,11 @@ struct MovieDetailListView: View {
                         Text("・")
                         Text(movie.durationText != "n/a" ? movie.durationText : (movie.durationTextSerie != "n/a" ? movie.durationTextSerie : "n/a"))
                     }
-                    .padding(.horizontal)
+                    .padding(.horizontal, g.size.width > 500 ? 45 : 25)
                     
                     Text(movie.overview ?? "")
                         .padding(.all)
+                        .padding(.horizontal, g.size.width > 500 ? 45 : 0)
 
                     Divider()
                     
@@ -135,7 +155,8 @@ struct MovieDetailListView: View {
                         Spacer()
                     }
                     .padding(.all)
-                    .padding(.leading, 30)
+                    .padding(.leading, 40)
+                    .padding(.leading, g.size.width > 500 ? 60 : 0)
                     
                     Divider()
                     
@@ -143,6 +164,7 @@ struct MovieDetailListView: View {
                         if movie.cast != nil && movie.cast!.count > 0 {
                             Text("Elenco Principal").font(.headline)
                                 .padding(.all)
+                                .padding(.leading, g.size.width > 500 ? 60 : 0)
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(alignment: .top, spacing: 15) {
                                     ForEach(self.movie.cast!.prefix(10)) { cast in
@@ -152,19 +174,19 @@ struct MovieDetailListView: View {
 
                                         } label: {
                                             VStack(alignment: .leading, spacing: 5) {
-                                                AnimatedImage(url: cast.posterURL)
-                                                    .resizable()
-                                                    .placeholder {
-                                                        ZStack {
-                                                            Rectangle().foregroundColor(Color(.systemGray4))
-                                                            Image(systemName: "person.fill")
-                                                                .resizable()
-                                                                .frame(width: 60, height: 60)
-                                                                .foregroundColor(.secondary)
-                                                        }
-                                                    }
-                                                    .frame(width: 150, height: 210)
-                                                
+                                                ZStack {
+                                                    Rectangle().foregroundColor(Color(.systemGray4))
+                                                    
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .frame(width: 60, height: 60)
+                                                        .foregroundColor(.secondary)
+                                                    
+                                                    AnimatedImage(url: cast.posterURL)
+                                                        .resizable()
+                                                    
+                                                }
+                                                .frame(width: 150, height: 210)
                                                 
                                                 Text(cast.name)
                                                     .fontWeight(.bold)
@@ -185,6 +207,9 @@ struct MovieDetailListView: View {
                                 }
                                 .frame(height: 310)
                                 .padding(.horizontal, 25)
+                                .sheet(isPresented: $showPerson) {
+                                    MovieDetailView(movieId: self.movieDetailState.idPerson, media: .person, personLink: .sheet)
+                                }
                             }
                             
                         }
@@ -202,21 +227,21 @@ struct MovieDetailListView: View {
                                             HStack {
                                                 Text(crew.name)
                                                 Spacer()
-                                                AnimatedImage(url: crew.posterURL)
-                                                    .resizable()
-                                                    .placeholder {
-                                                        ZStack {
-                                                            Rectangle().foregroundColor(Color(.systemGray4))
-                                                            Image(systemName: "person.fill")
-                                                                .resizable()
-                                                                .frame(width: 20, height: 20)
-                                                                .foregroundColor(.secondary)
-                                                        }
-                                                    }
-                                                    .scaledToFill()
-                                                    .frame(width: 50, height: 50)
-                                                    .clipShape(Circle())
-                                                    .shadow(radius: 3)
+                                                ZStack {
+                                                    Rectangle().foregroundColor(Color(.systemGray4))
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20)
+                                                        .foregroundColor(.secondary)
+                                                    
+                                                    AnimatedImage(url: crew.posterURL)
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        
+                                                }
+                                                .frame(width: 50, height: 50)
+                                                .clipShape(Circle())
+                                                .shadow(radius: 3)
                                             }
                                         }
                                         .buttonStyle(PlainButtonStyle())
@@ -235,21 +260,21 @@ struct MovieDetailListView: View {
                                             HStack {
                                                 Text(crew.name)
                                                 Spacer()
-                                                AnimatedImage(url: crew.posterURL)
-                                                    .resizable()
-                                                    .placeholder {
-                                                        ZStack {
-                                                            Rectangle().foregroundColor(Color(.systemGray4))
-                                                            Image(systemName: "person.fill")
-                                                                .resizable()
-                                                                .frame(width: 20, height: 20)
-                                                                .foregroundColor(.secondary)
-                                                        }
-                                                    }
-                                                    .scaledToFill()
-                                                    .frame(width: 50, height: 50)
-                                                    .clipShape(Circle())
-                                                    .shadow(radius: 3)
+                                                ZStack {
+                                                    Rectangle().foregroundColor(Color(.systemGray4))
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20)
+                                                        .foregroundColor(.secondary)
+                                                    
+                                                    AnimatedImage(url: crew.posterURL)
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        
+                                                }
+                                                .frame(width: 50, height: 50)
+                                                .clipShape(Circle())
+                                                .shadow(radius: 3)
                                             }
                                         }
                                         .buttonStyle(PlainButtonStyle())
@@ -268,21 +293,21 @@ struct MovieDetailListView: View {
                                             HStack {
                                                 Text(crew.name)
                                                 Spacer()
-                                                AnimatedImage(url: crew.posterURL)
-                                                    .resizable()
-                                                    .placeholder {
-                                                        ZStack {
-                                                            Rectangle().foregroundColor(Color(.systemGray4))
-                                                            Image(systemName: "person.fill")
-                                                                .resizable()
-                                                                .frame(width: 20, height: 20)
-                                                                .foregroundColor(.secondary)
-                                                        }
-                                                    }
-                                                    .scaledToFill()
-                                                    .frame(width: 50, height: 50)
-                                                    .clipShape(Circle())
-                                                    .shadow(radius: 3)
+                                                ZStack {
+                                                    Rectangle().foregroundColor(Color(.systemGray4))
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .frame(width: 20, height: 20)
+                                                        .foregroundColor(.secondary)
+                                                    
+                                                    AnimatedImage(url: crew.posterURL)
+                                                        .resizable()
+                                                        .scaledToFill()
+                                                        
+                                                }
+                                                .frame(width: 50, height: 50)
+                                                .clipShape(Circle())
+                                                .shadow(radius: 3)
                                             }
                                         }
                                         .buttonStyle(PlainButtonStyle())
@@ -292,6 +317,7 @@ struct MovieDetailListView: View {
                             .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
                             .padding(.all)
                             .padding(.horizontal)
+                            .padding(.horizontal, g.size.width > 500 ? 45 : 0)
                         }
                     }
                     
@@ -325,21 +351,16 @@ struct MovieDetailListView: View {
                         .buttonStyle(PlainButtonStyle())
                         .padding(.vertical, 10)
                         .padding([.bottom, .horizontal])
+                        .padding(.horizontal, g.size.width > 500 ? 45 : 0)
+                        .fullScreenCover(item: self.$selectedTrailer) { trailer in
+                            SafariView(url: trailer.youtubeURL!).edgesIgnoringSafeArea(.all)
+                        }
                     }
                 }
-                
-                Button("", action: {})
-                .fullScreenCover(item: self.$selectedTrailer) { trailer in
-                    SafariView(url: trailer.youtubeURL!).edgesIgnoringSafeArea(.all)
-                }
-                Button("", action: {})
-                .sheet(isPresented: $showPerson) {
-                    MovieDetailView(movieId: self.movieDetailState.idPerson, media: .person, personLink: .sheet)
-                }
-                
             }
-            .edgesIgnoringSafeArea(.bottom)
+
         }
+        .ignoresSafeArea(.all, edges: [.bottom, .horizontal])
     }
     
     func getPercent(current : CGFloat) -> String {
@@ -352,57 +373,72 @@ struct MovieDetailListView: View {
 
 struct MovieDetailPersonView: View {
     
+    @Environment(\.presentationMode) var dismiss
     let personLink: PersonLink
     let movie: Movie
     
     var body: some View {
         VStack(spacing: 0) {
-            VStack {
-                
-                Text(movie.title ?? movie.name ?? "Desconhecido")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.center)
-                    .padding(.all)
-                    .padding(.top, personLink == .sheet ? 10 : 50)
-                
-                HStack {
+            ZStack(alignment: .topLeading) {
+                VStack {
                     
-                    VStack(alignment: .leading) {
-                        Spacer()
-                        AnimatedImage(url: movie.profileURL)
-                            .resizable()
-                            .placeholder {
-                                ZStack(alignment: .center) {
-                                    Rectangle().foregroundColor(Color(.systemGray4))
-                                        .frame(height: 400)
-                                    
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .frame(width: 130, height: 100)
-                                        .foregroundColor(.secondary)
-                                        .offset(y: -50)
+                    Text(movie.title ?? movie.name ?? "Desconhecido")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .multilineTextAlignment(.center)
+                        .padding(.all)
+                        .padding(.top, personLink == .sheet ? 10 : 50)
+                        .padding(.horizontal, 45)
+                    
+                    HStack {
+                        
+                        VStack(alignment: .leading) {
+                            Spacer()
+                            AnimatedImage(url: movie.profileURL)
+                                .resizable()
+                                .placeholder {
+                                    ZStack(alignment: .center) {
+                                        Rectangle().foregroundColor(Color(.systemGray4))
+                                            .frame(height: 400)
+                                        
+                                        Image(systemName: "person.fill")
+                                            .resizable()
+                                            .frame(width: 90, height: 100)
+                                            .foregroundColor(.secondary)
+                                            .offset(y: -50)
+                                    }
                                 }
-                            }
-                            .indicator(SDWebImageActivityIndicator.medium)
-                            .frame(width: 220, height: 320)
-                            .clipShape(Corners(corner: [.bottomLeft, .topRight], size: CGSize(width: 18, height: 18)))
-                            .shadow(radius: 10)
+                                .indicator(SDWebImageActivityIndicator.medium)
+                                .frame(width: 220, height: 320)
+                                .clipShape(Corners(corner: [.bottomLeft, .topRight], size: CGSize(width: 18, height: 18)))
+                                .shadow(radius: 10)
+                        }
+                        
+                        VStack(alignment: .leading, spacing: 15) {
+                            Text(movie.knownForDepartment ?? "")
+                            Text(movie.placeOfBirth ?? "")
+                            Text(movie.birthday ?? "")
+                        }
+                        .padding(.horizontal)
+                        
+                        Spacer(minLength: 0)
                     }
                     
-                    VStack(alignment: .leading, spacing: 15) {
-                        Text(movie.knownForDepartment ?? "")
-                        Text(movie.placeOfBirth ?? "")
-                        Text(movie.birthday ?? "")
-                    }
-                    .padding(.horizontal)
-                    
-                    Spacer(minLength: 0)
                 }
-            
+                .background(BlurView(style: .systemMaterial).clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 18, height: 18))))
+                
+                Button {
+                    dismiss.wrappedValue.dismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .foregroundColor(.white)
+                        .padding(.all, 10)
+                        .background(BlurView(style: .systemMaterialDark))
+                        .clipShape(Circle())
+                        .padding([.top, .leading])
+                }
+                
             }
-            .background(BlurView(style: .systemMaterial).clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 18, height: 18))))
-            
             
             ScrollView {
                 
@@ -410,9 +446,9 @@ struct MovieDetailPersonView: View {
                     .padding(.all)
                 
             }
-        
+            
         }
-        .edgesIgnoringSafeArea(.top)
+        .edgesIgnoringSafeArea(.all)
     }
     
 }

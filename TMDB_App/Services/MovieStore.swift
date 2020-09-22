@@ -10,13 +10,14 @@ import Foundation
 class MovieStore: MovieService {
     
     static let shared = MovieStore()
-    private init() {}
     
     private let apiKey = "60826b467c91b5b94f65049ead0cafa6"
     private let baseAPIURL = "https://api.themoviedb.org/3"
     private let urlSession = URLSession.shared
     private let jasonDecoder = Utils.jsonDecoder
     
+    private init() {}
+
     func fetchMovies(from endpoint: MovieListEndPoint, mediaType: MediaType, completion: @escaping (Result<MovieResponse, MovieError>) -> ()) {
         guard let url = URL(string: "\(baseAPIURL)/\(mediaType.rawValue)/\(endpoint.rawValue)") else {
             completion(.failure(.invalidEndpoint))

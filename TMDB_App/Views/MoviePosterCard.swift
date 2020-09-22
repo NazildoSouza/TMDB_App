@@ -13,7 +13,6 @@ struct MoviePosterCard: View {
     let movie: Movie
     
     var body: some View {
-
         ZStack(alignment: Alignment(horizontal: .trailing, vertical: .bottom)) {
             AnimatedImage(url: self.movie.posterURL)
                 .resizable()
