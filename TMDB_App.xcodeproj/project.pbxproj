@@ -9,7 +9,17 @@
 /* Begin PBXBuildFile section */
 		2002494724E8EB1D006BF66D /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002494624E8EB1D006BF66D /* LoadingView.swift */; };
 		2002494924E8F058006BF66D /* MovieDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002494824E8F058006BF66D /* MovieDetailState.swift */; };
+		200A1042258444790045904C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200A1041258444790045904C /* SearchView.swift */; };
+		200A1046258444EC0045904C /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200A1045258444EC0045904C /* SearchList.swift */; };
+		200A104A258445290045904C /* SearchListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 200A1049258445290045904C /* SearchListCard.swift */; };
+		201E927325848D0E00036199 /* BlurWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201E927225848D0E00036199 /* BlurWindow.swift */; };
+		203978042581AAB400021C1F /* MoviePosterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203978032581AAB400021C1F /* MoviePosterRow.swift */; };
+		203978082581B05B00021C1F /* MoviePosterCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203978072581B05B00021C1F /* MoviePosterCarouselView.swift */; };
+		2039780C2581EDE900021C1F /* MovieDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2039780B2581EDE900021C1F /* MovieDataView.swift */; };
 		203CC78624E4E5D40054EE2C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203CC78524E4E5D40054EE2C /* Extensions.swift */; };
+		203DD4E125818B3A003E9C40 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203DD4E025818B3A003E9C40 /* MovieListView.swift */; };
+		203DD4E525818BE8003E9C40 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 203DD4E425818BE8003E9C40 /* MovieDetailView.swift */; };
+		2054FBC725845E9900ACC5E5 /* MovieDetailPersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2054FBC625845E9900ACC5E5 /* MovieDetailPersonView.swift */; };
 		2075C9A624E22F1A0019EF51 /* TMDB_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9A524E22F1A0019EF51 /* TMDB_AppApp.swift */; };
 		2075C9A824E22F1A0019EF51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9A724E22F1A0019EF51 /* ContentView.swift */; };
 		2075C9AA24E22F1B0019EF51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2075C9A924E22F1B0019EF51 /* Assets.xcassets */; };
@@ -29,6 +39,25 @@
 		2075C9D224E264980019EF51 /* MoviePosterCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9D124E264980019EF51 /* MoviePosterCarouselView.swift */; };
 		20A246EF24E9E25900B76FD0 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A246EE24E9E25900B76FD0 /* MovieDetailView.swift */; };
 		20A246F124E9EF8500B76FD0 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20A246F024E9EF8500B76FD0 /* SafariView.swift */; };
+		20BD58E3258189320009E226 /* TMDB_App_MacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BD58E2258189320009E226 /* TMDB_App_MacOSApp.swift */; };
+		20BD58E5258189320009E226 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20BD58E4258189320009E226 /* ContentView.swift */; };
+		20BD58E7258189320009E226 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20BD58E6258189320009E226 /* Assets.xcassets */; };
+		20BD58EA258189320009E226 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20BD58E9258189320009E226 /* Preview Assets.xcassets */; };
+		20BD58F42581894F0009E226 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 20BD58F32581894F0009E226 /* SDWebImageSwiftUI */; };
+		20BD58F5258189670009E226 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9BC24E242530019EF51 /* Utils.swift */; };
+		20BD58F82581898C0009E226 /* movie_list.json in Resources */ = {isa = PBXBuildFile; fileRef = 2075C9BF24E256710019EF51 /* movie_list.json */; };
+		20BD58F92581898C0009E226 /* movie_info.json in Resources */ = {isa = PBXBuildFile; fileRef = 2075C9C024E256710019EF51 /* movie_info.json */; };
+		20BD58FA2581898C0009E226 /* search_movie.json in Resources */ = {isa = PBXBuildFile; fileRef = 2075C9C124E256710019EF51 /* search_movie.json */; };
+		20BD58FD258189920009E226 /* Movie+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9C524E256D30019EF51 /* Movie+Stub.swift */; };
+		20BD58FE258189920009E226 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9B524E235EA0019EF51 /* Movie.swift */; };
+		20BD5901258189960009E226 /* MovieStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9BA24E23DDC0019EF51 /* MovieStore.swift */; };
+		20BD5902258189960009E226 /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2075C9B824E2370E0019EF51 /* MovieService.swift */; };
+		20BD5905258189A80009E226 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002494624E8EB1D006BF66D /* LoadingView.swift */; };
+		20BD5908258189B70009E226 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FFD45324E3952700DF5349 /* MovieListState.swift */; };
+		20BD590B258189BA0009E226 /* MovieDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2002494824E8F058006BF66D /* MovieDetailState.swift */; };
+		20BD590E258189BC0009E226 /* MovieSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FFD45924E3B0AA00DF5349 /* MovieSearchState.swift */; };
+		20F0BFBE2529394100CCF17A /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0BFBD2529394100CCF17A /* SearchList.swift */; };
+		20F0BFC1252939A700CCF17A /* SearchListCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F0BFC0252939A700CCF17A /* SearchListCard.swift */; };
 		20FFD45224E3875700DF5349 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 20FFD45124E3875700DF5349 /* SDWebImageSwiftUI */; };
 		20FFD45424E3952700DF5349 /* MovieListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FFD45324E3952700DF5349 /* MovieListState.swift */; };
 		20FFD45624E3A26E00DF5349 /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20FFD45524E3A26E00DF5349 /* MovieListView.swift */; };
@@ -39,7 +68,17 @@
 /* Begin PBXFileReference section */
 		2002494624E8EB1D006BF66D /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		2002494824E8F058006BF66D /* MovieDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailState.swift; sourceTree = "<group>"; };
+		200A1041258444790045904C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		200A1045258444EC0045904C /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
+		200A1049258445290045904C /* SearchListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListCard.swift; sourceTree = "<group>"; };
+		201E927225848D0E00036199 /* BlurWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurWindow.swift; sourceTree = "<group>"; };
+		203978032581AAB400021C1F /* MoviePosterRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterRow.swift; sourceTree = "<group>"; };
+		203978072581B05B00021C1F /* MoviePosterCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCarouselView.swift; sourceTree = "<group>"; };
+		2039780B2581EDE900021C1F /* MovieDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDataView.swift; sourceTree = "<group>"; };
 		203CC78524E4E5D40054EE2C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		203DD4E025818B3A003E9C40 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
+		203DD4E425818BE8003E9C40 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		2054FBC625845E9900ACC5E5 /* MovieDetailPersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailPersonView.swift; sourceTree = "<group>"; };
 		2075C9A224E22F1A0019EF51 /* TMDB_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2075C9A524E22F1A0019EF51 /* TMDB_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDB_AppApp.swift; sourceTree = "<group>"; };
 		2075C9A724E22F1A0019EF51 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -61,6 +100,15 @@
 		2075C9D124E264980019EF51 /* MoviePosterCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePosterCarouselView.swift; sourceTree = "<group>"; };
 		20A246EE24E9E25900B76FD0 /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
 		20A246F024E9EF8500B76FD0 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		20BD58E0258189320009E226 /* TMDB_App_MacOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMDB_App_MacOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		20BD58E2258189320009E226 /* TMDB_App_MacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDB_App_MacOSApp.swift; sourceTree = "<group>"; };
+		20BD58E4258189320009E226 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		20BD58E6258189320009E226 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		20BD58E9258189320009E226 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		20BD58EB258189320009E226 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		20BD58EC258189320009E226 /* TMDB_App_MacOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TMDB_App_MacOS.entitlements; sourceTree = "<group>"; };
+		20F0BFBD2529394100CCF17A /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
+		20F0BFC0252939A700CCF17A /* SearchListCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListCard.swift; sourceTree = "<group>"; };
 		20FFD45324E3952700DF5349 /* MovieListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListState.swift; sourceTree = "<group>"; };
 		20FFD45524E3A26E00DF5349 /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		20FFD45724E3AC4600DF5349 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -76,6 +124,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		20BD58DD258189320009E226 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20BD58F42581894F0009E226 /* SDWebImageSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,7 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				2075C9A424E22F1A0019EF51 /* TMDB_App */,
+				20BD58E1258189320009E226 /* TMDB_App_MacOS */,
 				2075C9A324E22F1A0019EF51 /* Products */,
+				20BD58F22581894F0009E226 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -91,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				2075C9A224E22F1A0019EF51 /* TMDB_App.app */,
+				20BD58E0258189320009E226 /* TMDB_App_MacOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,10 +230,50 @@
 				20FFD45524E3A26E00DF5349 /* MovieListView.swift */,
 				20A246EE24E9E25900B76FD0 /* MovieDetailView.swift */,
 				20FFD45724E3AC4600DF5349 /* SearchView.swift */,
+				20F0BFBD2529394100CCF17A /* SearchList.swift */,
+				20F0BFC0252939A700CCF17A /* SearchListCard.swift */,
 				2002494624E8EB1D006BF66D /* LoadingView.swift */,
 				2075C9C724E25B000019EF51 /* Bindings */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		20BD58E1258189320009E226 /* TMDB_App_MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				20BD58E2258189320009E226 /* TMDB_App_MacOSApp.swift */,
+				201E927225848D0E00036199 /* BlurWindow.swift */,
+				20BD58E4258189320009E226 /* ContentView.swift */,
+				203DD4E025818B3A003E9C40 /* MovieListView.swift */,
+				203DD4E425818BE8003E9C40 /* MovieDetailView.swift */,
+				203978032581AAB400021C1F /* MoviePosterRow.swift */,
+				203978072581B05B00021C1F /* MoviePosterCarouselView.swift */,
+				200A1041258444790045904C /* SearchView.swift */,
+				200A1045258444EC0045904C /* SearchList.swift */,
+				200A1049258445290045904C /* SearchListCard.swift */,
+				2054FBC625845E9900ACC5E5 /* MovieDetailPersonView.swift */,
+				2039780B2581EDE900021C1F /* MovieDataView.swift */,
+				20BD58E6258189320009E226 /* Assets.xcassets */,
+				20BD58EB258189320009E226 /* Info.plist */,
+				20BD58EC258189320009E226 /* TMDB_App_MacOS.entitlements */,
+				20BD58E8258189320009E226 /* Preview Content */,
+			);
+			path = TMDB_App_MacOS;
+			sourceTree = "<group>";
+		};
+		20BD58E8258189320009E226 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				20BD58E9258189320009E226 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		20BD58F22581894F0009E226 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,17 +299,40 @@
 			productReference = 2075C9A224E22F1A0019EF51 /* TMDB_App.app */;
 			productType = "com.apple.product-type.application";
 		};
+		20BD58DF258189320009E226 /* TMDB_App_MacOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 20BD58EF258189320009E226 /* Build configuration list for PBXNativeTarget "TMDB_App_MacOS" */;
+			buildPhases = (
+				20BD58DC258189320009E226 /* Sources */,
+				20BD58DD258189320009E226 /* Frameworks */,
+				20BD58DE258189320009E226 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TMDB_App_MacOS;
+			packageProductDependencies = (
+				20BD58F32581894F0009E226 /* SDWebImageSwiftUI */,
+			);
+			productName = TMDB_App_MacOS;
+			productReference = 20BD58E0258189320009E226 /* TMDB_App_MacOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2075C99A24E22F1A0019EF51 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1230;
 				TargetAttributes = {
 					2075C9A124E22F1A0019EF51 = {
 						CreatedOnToolsVersion = 12.0;
+					};
+					20BD58DF258189320009E226 = {
+						CreatedOnToolsVersion = 12.2;
 					};
 				};
 			};
@@ -231,6 +353,7 @@
 			projectRoot = "";
 			targets = (
 				2075C9A124E22F1A0019EF51 /* TMDB_App */,
+				20BD58DF258189320009E226 /* TMDB_App_MacOS */,
 			);
 		};
 /* End PBXProject section */
@@ -248,6 +371,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		20BD58DE258189320009E226 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20BD58EA258189320009E226 /* Preview Assets.xcassets in Resources */,
+				20BD58F82581898C0009E226 /* movie_list.json in Resources */,
+				20BD58F92581898C0009E226 /* movie_info.json in Resources */,
+				20BD58FA2581898C0009E226 /* search_movie.json in Resources */,
+				20BD58E7258189320009E226 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -256,6 +391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2075C9A824E22F1A0019EF51 /* ContentView.swift in Sources */,
+				20F0BFBE2529394100CCF17A /* SearchList.swift in Sources */,
 				2002494924E8F058006BF66D /* MovieDetailState.swift in Sources */,
 				20FFD45624E3A26E00DF5349 /* MovieListView.swift in Sources */,
 				2075C9CE24E261A70019EF51 /* MovieBackdropCarouselView.swift in Sources */,
@@ -276,6 +412,35 @@
 				2075C9C924E25B350019EF51 /* ImageLoader.swift in Sources */,
 				2075C9BD24E242530019EF51 /* Utils.swift in Sources */,
 				2002494724E8EB1D006BF66D /* LoadingView.swift in Sources */,
+				20F0BFC1252939A700CCF17A /* SearchListCard.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		20BD58DC258189320009E226 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20BD58FD258189920009E226 /* Movie+Stub.swift in Sources */,
+				20BD58E5258189320009E226 /* ContentView.swift in Sources */,
+				20BD58E3258189320009E226 /* TMDB_App_MacOSApp.swift in Sources */,
+				2039780C2581EDE900021C1F /* MovieDataView.swift in Sources */,
+				20BD590B258189BA0009E226 /* MovieDetailState.swift in Sources */,
+				203978042581AAB400021C1F /* MoviePosterRow.swift in Sources */,
+				200A1042258444790045904C /* SearchView.swift in Sources */,
+				20BD590E258189BC0009E226 /* MovieSearchState.swift in Sources */,
+				203DD4E125818B3A003E9C40 /* MovieListView.swift in Sources */,
+				20BD58F5258189670009E226 /* Utils.swift in Sources */,
+				201E927325848D0E00036199 /* BlurWindow.swift in Sources */,
+				2054FBC725845E9900ACC5E5 /* MovieDetailPersonView.swift in Sources */,
+				203DD4E525818BE8003E9C40 /* MovieDetailView.swift in Sources */,
+				200A1046258444EC0045904C /* SearchList.swift in Sources */,
+				203978082581B05B00021C1F /* MoviePosterCarouselView.swift in Sources */,
+				20BD5901258189960009E226 /* MovieStore.swift in Sources */,
+				20BD5908258189B70009E226 /* MovieListState.swift in Sources */,
+				20BD5905258189A80009E226 /* LoadingView.swift in Sources */,
+				20BD58FE258189920009E226 /* Movie.swift in Sources */,
+				20BD5902258189960009E226 /* MovieService.swift in Sources */,
+				200A104A258445290045904C /* SearchListCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +607,58 @@
 			};
 			name = Release;
 		};
+		20BD58ED258189320009E226 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TMDB_App_MacOS/TMDB_App_MacOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TMDB_App_MacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = CRZL2UUGWW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TMDB_App_MacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nazildosouza.TMDB-App-MacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		20BD58EE258189320009E226 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TMDB_App_MacOS/TMDB_App_MacOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"TMDB_App_MacOS/Preview Content\"";
+				DEVELOPMENT_TEAM = CRZL2UUGWW;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = TMDB_App_MacOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.nazildosouza.TMDB-App-MacOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -463,6 +680,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		20BD58EF258189320009E226 /* Build configuration list for PBXNativeTarget "TMDB_App_MacOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				20BD58ED258189320009E226 /* Debug */,
+				20BD58EE258189320009E226 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -477,6 +703,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		20BD58F32581894F0009E226 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 20FFD45024E3875700DF5349 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
 		20FFD45124E3875700DF5349 /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 20FFD45024E3875700DF5349 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

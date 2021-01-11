@@ -12,7 +12,7 @@ class MovieListState: ObservableObject {
     @Published var movies: [Movie]?
     @Published var isLoading: Bool = false
     @Published var error: NSError?
-
+    
     private let movieService: MovieService
 
     init(movieService: MovieService = MovieStore.shared) {

@@ -16,15 +16,8 @@ struct MovieListView: View {
     
     @State private var mediaType: MediaType = .movie
     @State private var showSearch = false
-    @State private var selectId = 0 {
-        didSet {
-            if selectId == 0 {
-                selectMovie()
-            } else {
-                selectTV()
-            }
-        }
-    }
+    @State private var textPicker = ["Filmes", "Séries"]
+    @State private var selectId = 0
     
     var body: some View {
         NavigationView {
@@ -32,7 +25,7 @@ struct MovieListView: View {
                 if !showSearch {
                     if !nowPlayingState.isLoading && !upcomingState.isLoading && !topRatedState.isLoading && !popularState.isLoading {
                         ScrollView(showsIndicators: false) {
-                            Spacer().frame(height: 135)
+                            Spacer().frame(height: 90)
                             
                             Group {
                                 if nowPlayingState.movies != nil {
@@ -89,21 +82,22 @@ struct MovieListView: View {
                         }
                     }
                 }
-                
+           
                 GeometryReader { geo in
+                    Picker("Select", selection: $selectId) {
+                        ForEach(0..<self.textPicker.count, id: \.self) {
+                            Text(textPicker[$0])
+                        }
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
                     
-                    VStack(alignment: .center) {
-                        Text("Tmdb App")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .padding(.top, 10)
-                        
+                    /*
                         HStack{
                             
                             Button(action: {
-                                
-                                self.selectId = 0
-                                
+                                if self.selectId != 0 {
+                                    self.selectId = 0
+                                }
                             }) {
                                 
                                 Text("Filmes")
@@ -117,9 +111,9 @@ struct MovieListView: View {
                             
                             
                             Button(action: {
-                                
-                                self.selectId = 1
-                                
+                                if self.selectId != 1 {
+                                    self.selectId = 1
+                                }
                             }) {
                                 
                                 Text("Séries")
@@ -132,41 +126,43 @@ struct MovieListView: View {
                             .cornerRadius(8)
                             
                         }
-                        .background(Color.black.opacity(0.25))
-                        .clipShape(Rectangle())
-                        .cornerRadius(8)
-                        .shadow(radius: 1)
-                        .padding([.horizontal, .vertical])
-                        
+                      */
+                    //    .background(Color.black.opacity(0.25))
+                    //    .clipShape(Rectangle())
+                   //     .cornerRadius(8)
+                   //     .shadow(radius: 1)
+                        .padding([.horizontal, .bottom])
+                        .padding(.top, 10)
+                        .frame(width: geo.size.width)
+                        .background(BlurView(style: .systemMaterial).clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 20, height: 20))).edgesIgnoringSafeArea([.top, .horizontal]).shadow(radius: 3))
+                    .onChange(of: self.selectId) { (id) in
+                        if id == 0 {
+                            selectMovie()
+                        } else {
+                            selectTV()
+                        }
                     }
-                    .frame(width: geo.size.width)
-                    .background(BlurView(style: .systemMaterial).clipShape(Corners(corner: [.bottomLeft, .bottomRight], size: CGSize(width: 20, height: 20))).edgesIgnoringSafeArea([.top, .horizontal]).shadow(radius: 3))
                     
                 }
-                
+             
                 if showSearch {
                     
                     SearchView()
                     
                 }
                 
-                Button(action: {
-                    showSearch.toggle()
-                }, label: {
-                    Image(systemName: showSearch ? "xmark" : "magnifyingglass")
-                        .imageScale(.large)
-                })
-                .padding(.all, 8)
-                .padding(.trailing, 30)
-                .padding(.top, 10)
-                
                 if nowPlayingState.movies == nil && upcomingState.movies == nil && topRatedState.movies == nil && popularState.movies == nil {
                     //shimer
                 }
                 
             }
-            .navigationBarHidden(true)
-            .navigationBarBackButtonHidden(true)
+            .navigationBarTitle(showSearch ? "Busca" : "Tmdb", displayMode: .inline)
+            .navigationBarItems(trailing: Button(action: {
+                showSearch.toggle()
+            }, label: {
+                Image(systemName: showSearch ? "xmark" : "magnifyingglass")
+                    .imageScale(.large)
+            }))
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {

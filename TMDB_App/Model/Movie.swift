@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct MovieResponse: Decodable {
+struct MovieResponse: Codable {
 
     let page: Int
     let results: [Movie]
     let totalResults, totalPages: Int?
 }
 
-struct Movie: Decodable, Identifiable, Hashable {
+struct Movie: Codable, Identifiable, Hashable {
     static func == (lhs: Movie, rhs: Movie) -> Bool {
         lhs.id == rhs.id
     }
@@ -22,19 +22,6 @@ struct Movie: Decodable, Identifiable, Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
-
-//    let id: Int
-//    let title: String?
-//    let name: String?
-//    let backdropPath: String?
-//    let posterPath: String?
-//    let overview: String?
-//    let voteAverage: Double?
-//    let voteCount: Int?
-//    let runtime: Int?
-//    let releaseDate: String?
-//    let episodeRunTime: [Int]?
-//    let firstAirDate: String?
     
     let posterPath: String?
     let popularity: Double?
@@ -59,11 +46,14 @@ struct Movie: Decodable, Identifiable, Hashable {
     let birthday, knownForDepartment, biography: String?
     let placeOfBirth: String?
     let gender: Int?
+    let budget: Int?
+    let revenue: Int?
+    var onHover: Bool?
     
     
-    let genres: [MovieGenre]?
-    let credits: MovieCredit?
-    let videos: MovieVideoResponse?
+    var genres: [MovieGenre]?
+    var credits: MovieCredit?
+    var videos: MovieVideoResponse?
 
     static private let yearFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -73,8 +63,16 @@ struct Movie: Decodable, Identifiable, Hashable {
 
     static private let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
-        formatter.unitsStyle = .full
+        formatter.unitsStyle = .abbreviated
         formatter.allowedUnits = [.hour, .minute]
+        return formatter
+    }()
+    
+    static private let currencyFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.alwaysShowsDecimalSeparator = true
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = "$"
         return formatter
     }()
 
@@ -91,7 +89,9 @@ struct Movie: Decodable, Identifiable, Hashable {
     }
 
     var genreText: String {
-        genres?.first?.name ?? "n/a"
+        //  genres?.first?.name ?? "n/a"
+        let genresString = genres?.map { $0.name }.joined(separator: ", ") ?? "-"
+        return genresString
     }
 
     var ratingText: String {
@@ -104,37 +104,51 @@ struct Movie: Decodable, Identifiable, Hashable {
 
     var scoreText: String {
         guard ratingText.count > 0 else {
-            return "n/a"
+            return "-"
         }
         return "\(ratingText.count)/10"
     }
 
     var yearText: String {
         guard let releaseDate = self.releaseDate, let date = Utils.dateFormatter.date(from: releaseDate) else {
-            return "n/a"
+            return "-"
         }
         return Movie.yearFormatter.string(from: date)
     }
 
     var durationText: String {
         guard let runtime = self.runtime, runtime > 0 else {
-            return "n/a"
+            return "-"
         }
-        return Movie.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
+        return Movie.durationFormatter.string(from: TimeInterval(runtime) * 60) ?? "-"
     }
     
     var yearTextSerie: String {
         guard let firstAirDate = self.firstAirDate, let date = Utils.dateFormatter.date(from: firstAirDate) else {
-            return "n/a"
+            return "-"
         }
         return Movie.yearFormatter.string(from: date)
     }
 
     var durationTextSerie: String {
         guard let episodeRunTime = self.episodeRunTime?.first, episodeRunTime > 0 else {
-            return "n/a"
+            return "-"
         }
-        return Movie.durationFormatter.string(from: TimeInterval(episodeRunTime) * 60) ?? "n/a"
+        return Movie.durationFormatter.string(from: TimeInterval(episodeRunTime) * 60) ?? "-"
+    }
+    
+    var budgetText: String {
+        guard let budget = self.budget, budget > 0 else {
+            return "-"
+        }
+        return Movie.currencyFormatter.string(from: NSNumber(value: budget)) ?? "-"
+    }
+    
+    var revenueText: String {
+        guard let revenue = self.revenue, revenue > 0 else {
+            return "-"
+        }
+        return Movie.currencyFormatter.string(from: NSNumber(value: revenue)) ?? "-"
     }
 
     var cast: [MovieCast]? {
@@ -163,50 +177,53 @@ struct Movie: Decodable, Identifiable, Hashable {
 
 }
 
-struct MovieGenre: Decodable {
+struct MovieGenre: Codable {
 
     let name: String
 }
 
-struct MovieCredit: Decodable {
+struct MovieCredit: Codable {
 
-    let cast: [MovieCast]
-    let crew: [MovieCrew]
+    var cast: [MovieCast]
+    var crew: [MovieCrew]
 }
 
-struct MovieCast: Decodable, Identifiable {
+struct MovieCast: Codable, Identifiable {
     let id: Int
     let character: String
     let name: String
     let profilePath: String?
+    var onHover: Bool?
 
     var posterURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
     }
 }
 
-struct MovieCrew: Decodable, Identifiable {
+struct MovieCrew: Codable, Identifiable {
     let id: Int
     let job: String
     let name: String
     let profilePath: String?
+    var onHover: Bool?
 
     var posterURL: URL {
         return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
     }
 }
 
-struct MovieVideoResponse: Decodable {
+struct MovieVideoResponse: Codable {
 
-    let results: [MovieVideo]
+    var results: [MovieVideo]
 }
 
-struct MovieVideo: Decodable, Identifiable {
+struct MovieVideo: Codable, Identifiable {
 
     let id: String
     let key: String
     let name: String
     let site: String
+    var onHover: Bool?
 
     var youtubeURL: URL? {
         guard site == "YouTube" else {
@@ -216,7 +233,7 @@ struct MovieVideo: Decodable, Identifiable {
     }
 }
 
-enum MediaType: String, CaseIterable, Decodable {
+enum MediaType: String, CaseIterable, Codable {
     case movie = "movie"
     case person = "person"
     case tv = "tv"
@@ -229,6 +246,11 @@ enum MediaType: String, CaseIterable, Decodable {
         }
     }
 }
+
+enum PersonLink {
+    case navigation, sheet
+}
+
 
 //enum OriginalLanguage: String, Decodable {
 //    case en = "en"

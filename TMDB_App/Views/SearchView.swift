@@ -12,19 +12,27 @@ struct SearchView: View {
     
     @StateObject private var movieSearchState = MovieSearchState()
     
+    var mediaType: [String: [Movie]]? {
+        if movieSearchState.movies != nil {
+            return Dictionary(grouping: movieSearchState.movies!.sorted(by: { $0.title ?? $0.name ?? "Desconhecido" < $1.title ?? $1.name ?? "Desconhecido" }), by: { $0.mediaType?.description ?? "Outros" })
+        }
+        return nil
+    }
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color(.systemBackground).edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 
-                Spacer().frame(height: 150)
+                Spacer().frame(height: 90)
                 
                 LoadingView(isLoading: self.movieSearchState.isLoading, error: self.movieSearchState.error) {
                     self.movieSearchState.search(query: self.movieSearchState.query)
                 }
                 
                 if self.movieSearchState.movies != nil {
+                    /*
                     ForEach(self.movieSearchState.movies!) { movie in
                         NavigationLink(destination: MovieDetailView(movieId: movie.id, media: movie.mediaType!, personLink: .navigation)) {
                             
@@ -65,6 +73,12 @@ struct SearchView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                     }
+                    */
+                    ForEach(mediaType!.keys.sorted(), id: \.self) { key in
+                        
+                        SearchList(mediaType: key, movies: self.mediaType![key]!)
+
+                    }
                 }
                 
                 if self.movieSearchState.isEmptyResults {
@@ -79,10 +93,6 @@ struct SearchView: View {
             }
             
             VStack {
-                Text("Busca")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.top, 10)
                 
                 SearchBar(query: self.$movieSearchState.query)
                     .padding(.horizontal, 25)
@@ -132,7 +142,7 @@ struct SearchBar: View {
         .shadow(radius: 2)
     }
 }
-
+/*
 struct SearchBarView: UIViewRepresentable {
     
     let placeholder: String
@@ -171,3 +181,4 @@ struct SearchBarView: UIViewRepresentable {
     }
     
 }
+*/
