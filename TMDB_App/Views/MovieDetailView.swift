@@ -119,12 +119,15 @@ struct MovieDetailListView: View {
                             .multilineTextAlignment(.center)
                             .padding(.all)
                         
-                        HStack {
-                            Text(movie.genreText)
-                            Text("・")
-                            Text(movie.yearText != "-" ? movie.yearText : (movie.yearTextSerie != "-" ? movie.yearTextSerie : "-"))
-                            Text("・")
-                            Text(movie.durationText != "-" ? movie.durationText : (movie.durationTextSerie != "-" ? movie.durationTextSerie : "-"))
+                        VStack(spacing: 8) {
+                            Text(movie.genreText).multilineTextAlignment(.center)
+                            
+                            HStack {
+                                //  Text("・")
+                                Text(movie.yearText != "-" ? movie.yearText : (movie.yearTextSerie != "-" ? movie.yearTextSerie : "-"))
+                                Text("・")
+                                Text(movie.durationText != "-" ? movie.durationText : (movie.durationTextSerie != "-" ? movie.durationTextSerie : "-"))
+                            }
                         }
                         .padding(.horizontal, g.size.width > 500 ? 45 : 25)
                         
