@@ -1,0 +1,12 @@
+# TMDB_App
+![](Imagens/Captura1.png)
+![](Imagens/Captura2.png)
+![](Imagens/Captura3.png) 
+![](Imagens/Captura4.png) 
+![](Imagens/Captura5.png) 
+![](Imagens/Captura6.png) 
+![](Imagens/Captura7.png) 
+![](Imagens/Captura8.png) 
+![](Imagens/Captura9.png) 
+![](Imagens/Captura10.png) 
+![](Imagens/Captura11.png)
